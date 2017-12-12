@@ -1,12 +1,22 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {Component} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 
-import Header from './components/Header';
-import Body from './components/Body';
+export default class App extends Component{
 
-export default ()=> (
-  <View style={{flex: 1, justifyContent: 'center'}}>
-    <Header title="Not To Do List" color="yellow"/>
-    <Body/>
-  </View>
-);
+  handleClick(){
+    alert('Clicked!');
+  }
+
+  render(){
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity
+          onPress={()=> this.handleClick()}
+          style={{backgroundColor: '#D0D0D0', padding: 10}}
+        >
+          <Text>Click Me!</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
