@@ -1,63 +1,47 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
-import Header from './components/Header';
-import Body from './components/Body';
+import {
+  Container, Content, Text,
+  Header, Body, Left, Right,
+  List, ListItem, CheckBox
+} from 'native-base';
 
 export default class App extends Component{
 
   render(){
     return (
-      <View style={styles.container}>
+      <Container>
+        <Header>
+          <Body>
+            <Text>Not To Do List</Text>
+          </Body>
+        </Header>
 
-        <View style={styles.header}>
-          <Text>Header</Text>
-        </View>
+        <Content>
+          <List>
 
-        <View style={styles.body}>
-
-          <View style={styles.list}>
-
-            <View style={styles.listItem}>
-              <View style={styles.listItemLeft}>
-                <Text>v</Text>
-              </View>
-              <View style={styles.listItemRight}>
+            <ListItem>
+              <Left>
+                <CheckBox checked={false}/>
+              </Left>
+              <Body>
                 <Text>First Item</Text>
-              </View>
-            </View>
+              </Body>
+              <Right/>
+            </ListItem>
 
-          </View>
+            <ListItem>
+              <Left>
+                <CheckBox checked={true}/>
+              </Left>
+              <Body>
+                <Text>Second Item</Text>
+              </Body>
+              <Right/>
+            </ListItem>
 
-        </View>
-
-      </View>
-    )
+          </List>
+        </Content>
+      </Container>
+    );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  header: {
-    backgroundColor: '#D0D0D0',
-    marginTop: 20,
-    flex: 0.5
-  },
-  body: {
-    backgroundColor: '#EC463E',
-    flex: 5
-  },
-  listItem: {
-    flexDirection: 'row',
-    padding: 10,
-    backgroundColor: '#FFF'
-  },
-  listItemLeft: {
-    flex: 1
-  },
-  listItemRight: {
-    flex: 9
-  }
-});
