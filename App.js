@@ -7,6 +7,21 @@ import {
 
 export default class App extends Component{
 
+  todos = [
+    {
+      id: "1",
+      todo: "First Not To Do"
+    },
+    {
+      id: "2",
+      todo: "Second Not To Do"
+    },
+    {
+      id: "3",
+      todo: "Third Not To Do"
+    },
+  ];
+
   render(){
     return (
       <Container>
@@ -19,25 +34,17 @@ export default class App extends Component{
         <Content>
           <List>
 
-            <ListItem>
-              <Left>
-                <CheckBox checked={false}/>
-              </Left>
-              <Body>
-                <Text>First Item</Text>
-              </Body>
-              <Right/>
-            </ListItem>
-
-            <ListItem>
-              <Left>
-                <CheckBox checked={true}/>
-              </Left>
-              <Body>
-                <Text>Second Item</Text>
-              </Body>
-              <Right/>
-            </ListItem>
+            {this.todos.map((todo)=> (
+              <ListItem key={todo.id}>
+                <Left>
+                  <CheckBox checked={false}/>
+                </Left>
+                <Body>
+                  <Text>{todo.todo}</Text>
+                </Body>
+                <Right/>
+              </ListItem>
+            ))}
 
           </List>
         </Content>
