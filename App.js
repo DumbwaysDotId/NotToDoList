@@ -5,6 +5,8 @@ import {
   List, ListItem, CheckBox
 } from 'native-base';
 
+import TodoItem from './components/TodoItem';
+
 export default class App extends Component{
 
   todos = [
@@ -33,19 +35,7 @@ export default class App extends Component{
 
         <Content>
           <List>
-
-            {this.todos.map((todo)=> (
-              <ListItem key={todo.id}>
-                <Left>
-                  <CheckBox checked={false}/>
-                </Left>
-                <Body>
-                  <Text>{todo.todo}</Text>
-                </Body>
-                <Right/>
-              </ListItem>
-            ))}
-
+            {this.todos.map((todo)=> <TodoItem todo={todo} key={todo.id}/> )}
           </List>
         </Content>
       </Container>
