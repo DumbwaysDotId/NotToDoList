@@ -4,6 +4,7 @@ import {
   Header, Body, Left, Right,
   List, ListItem, CheckBox
 } from 'native-base';
+import {FlatList} from 'react-native';
 
 import TodoItem from './components/TodoItem';
 
@@ -24,6 +25,8 @@ export default class App extends Component{
     },
   ];
 
+  _keyExtractor = (item, index) => item.id;
+
   render(){
     return (
       <Container>
@@ -35,7 +38,12 @@ export default class App extends Component{
 
         <Content>
           <List>
-            {this.todos.map((todo)=> <TodoItem todo={todo} key={todo.id}/> )}
+            <FlatList
+              data={this.todos}
+              keyExtractor={this._keyExtractor}
+              renderItem={({item}) => <TodoItem todo={item}/>}
+            />
+            {/*this.todos.map((todo)=> <TodoItem todo={todo} key={todo.id}/> )*/}
           </List>
         </Content>
       </Container>
