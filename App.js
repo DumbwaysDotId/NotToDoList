@@ -10,10 +10,22 @@ import TodoItem from './components/TodoItem';
 
 export default class App extends Component{
 
-  state = {
-    count: 0,
-    todos: []
-  };
+  constructor(){
+    super();
+    this.state = {
+      count: 0,
+      todos: []
+    };
+  }
+
+  componentWillMount(){
+    console.log('componentWillMount');
+  }
+
+  componentDidMount(){
+    console.log('componentDidMount');
+    this.handleIncTodo();
+  }
 
   _keyExtractor = (item, index) => item.id;
 
