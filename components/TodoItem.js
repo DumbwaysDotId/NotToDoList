@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export default class TodoItem extends Component{
 
   render(){
-    const {todo: {id, todo}} = this.props;
+    const {todo: {id, name}} = this.props;
 
     return (
       <ListItem key={id}>
@@ -13,7 +13,7 @@ export default class TodoItem extends Component{
           <CheckBox checked={false}/>
         </Left>
         <Body>
-          <Text>{todo}</Text>
+          <Text>{name}</Text>
         </Body>
         <Right/>
       </ListItem>

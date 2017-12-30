@@ -5,6 +5,7 @@ import {
   List, ListItem, CheckBox, Fab, Icon
 } from 'native-base';
 import {FlatList} from 'react-native';
+import axios from 'axios';
 
 import TodoItem from '../components/TodoItem';
 
@@ -16,6 +17,15 @@ export default class Todos extends Component{
       count: 0,
       todos: []
     };
+  }
+
+  componentDidMount(){
+    const self = this;
+    axios.get(`http://192.168.1.102:8000/api/todos`).then((result)=>{
+      self.setState({
+        todos: result.data
+      })
+    });
   }
 
   _keyExtractor = (item, index) => item.id;
