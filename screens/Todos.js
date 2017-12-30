@@ -8,6 +8,7 @@ import {FlatList} from 'react-native';
 import axios from 'axios';
 
 import TodoItem from '../components/TodoItem';
+import {API_URL} from '../constants';
 
 export default class Todos extends Component{
 
@@ -21,7 +22,7 @@ export default class Todos extends Component{
 
   componentDidMount(){
     const self = this;
-    axios.get(`http://192.168.1.102:8000/api/todos`).then((result)=>{
+    axios.get(`${API_URL}/todos`).then((result)=>{
       self.setState({
         todos: result.data
       })

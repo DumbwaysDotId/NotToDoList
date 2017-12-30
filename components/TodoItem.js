@@ -4,6 +4,8 @@ import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+import {API_URL} from '../constants';
+
 export default class TodoItem extends Component{
 
   state = {
@@ -23,13 +25,13 @@ export default class TodoItem extends Component{
       isDone: !this.state.isDone
     });
 
-    axios.patch(`http://192.168.1.102:8000/api/todos/${id}`, {
+    axios.patch(`${API_URL}/todos/${id}`, {
       isDone: this.state.isDone? 0: 1
     });
   }
 
   handleDelete(id){
-    axios.delete(`http://192.168.1.102:8000/api/todos/${id}`);
+    axios.delete(`${API_URL}/todos/${id}`);
   }
 
   render(){
@@ -40,9 +42,13 @@ export default class TodoItem extends Component{
         key={id}
         rightOpenValue={-75}
         body={
-          <View>
-            <CheckBox checked={this.state.isDone} onPress={()=> this.handleDone()}/>
-            <Text>{name}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <View style={{padding: 10}}>
+              <CheckBox checked={this.state.isDone} onPress={()=> this.handleDone()}/>
+            </View>
+            <View style={{padding: 10}}>
+              <Text>{name}</Text>
+            </View>
           </View>
         }
         right={

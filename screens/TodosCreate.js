@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Container, Content, Text, Form, Item, Label, Input, Button} from 'native-base';
+import {StyleSheet} from 'react-native';
 import axios from 'axios';
+
+import {API_URL} from '../constants';
 
 export default class TodosCreate extends Component{
 
@@ -15,11 +18,13 @@ export default class TodosCreate extends Component{
     const text = this.state.text;
     const {goBack} = this.props.navigation;
 
-    axios.post(`http://192.168.1.102:8000/api/todos`, {
-      name: text
-    }).then((result)=>{
-      goBack();
-    })
+    if(text){
+      axios.post(`${API_URL}/todos`, {
+        name: text
+      }).then((result)=>{
+        goBack();
+      })
+    }    
   }
 
   render(){
@@ -31,12 +36,21 @@ export default class TodosCreate extends Component{
               <Label>Not Todo</Label>
               <Input onChangeText={(text) => this.setState({text})}/>
             </Item>
-            <Button full primary onPress={()=> this.handleSubmit()}>
-              <Text>Submit</Text>
-            </Button>
           </Form>
         </Content>
+        <Button full primary onPress={()=> this.handleSubmit()} style={styles.btnFooter}>
+          <Text>Submit</Text>
+        </Button>
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  btnFooter: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0
+  }
+})
