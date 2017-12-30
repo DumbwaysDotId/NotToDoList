@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Content, Text, Form, Item, Label, Input, Button} from 'native-base';
+import axios from 'axios';
 
 export default class TodosCreate extends Component{
 
@@ -11,7 +12,14 @@ export default class TodosCreate extends Component{
   }
 
   handleSubmit(){
-    alert(this.state.text)
+    const text = this.state.text;
+    const {goBack} = this.props.navigation;
+
+    axios.post(`http://192.168.1.102:8000/api/todos`, {
+      name: text
+    }).then((result)=>{
+      goBack();
+    })
   }
 
   render(){
