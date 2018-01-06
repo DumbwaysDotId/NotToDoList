@@ -1,10 +1,10 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import logger from 'redux-logger';
 
 //REDUCER
 const usersInitialState = {
   username: ""
 };
-
 const usersReducer = function(state = usersInitialState, action){
   switch (action.type) {
     case 'USERS_CHANGE_USERNAME':
@@ -31,10 +31,14 @@ const todosReducer = function(state = todosInitialState, action){
 }
 
 //STORE
-const store = createStore(combineReducers({
+const rootReducers = combineReducers({
   usersReducer,
   todosReducer
-}));
+});
+
+const middlewares = applyMiddleware(logger);
+
+const store = createStore(rootReducers, middlewares);
 
 //SUBSCRIPTIONS
 store.subscribe(()=>{
