@@ -1,24 +1,40 @@
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 
 //REDUCER
-const reducer = function(state, action){
-  let newState;
+const usersInitialState = {
+  username: ""
+};
+
+const usersReducer = function(state = usersInitialState, action){
   switch (action.type) {
-    case "INC":
-      newState = state + action.payload;
-      break;
-    case "DEC":
-      newState = state - action.payload;
+    case 'USERS_CHANGE_USERNAME':
+      state = {...state, username: action.payload};
       break;
     default:
-      newState = state;
+      state;
   }
+  return state;
+}
 
-  return newState;
+const todosInitialState = {
+  name: ""
+}
+const todosReducer = function(state = todosInitialState, action){
+  switch (action.type) {
+    case 'TODOS_CHANGE_NAME':
+      state = {...state, name: action.payload};
+      break;
+    default:
+      state;
+  }
+  return state;
 }
 
 //STORE
-const store = createStore(reducer, 0);
+const store = createStore(combineReducers({
+  usersReducer,
+  todosReducer
+}));
 
 //SUBSCRIPTIONS
 store.subscribe(()=>{
@@ -26,7 +42,5 @@ store.subscribe(()=>{
 });
 
 //DISPATCHER
-store.dispatch({type: "INC", payload: 2});
-store.dispatch({type: "INC", payload: 3});
-store.dispatch({type: "DEC", payload: 1});
-store.dispatch({type: "DEC", payload: 2});
+store.dispatch({type: 'USERS_CHANGE_USERNAME', payload: "radiegtya"});
+store.dispatch({type: 'TODOS_CHANGE_NAME', payload: "olahraga otak"});
