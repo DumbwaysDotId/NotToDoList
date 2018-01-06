@@ -1,5 +1,9 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import logger from 'redux-logger';
+import axios from 'axios';
+import promiseMiddleware from 'redux-promise-middleware';
+
+import {API_URL} from '../constants';
 
 //REDUCER
 const usersInitialState = {
@@ -17,12 +21,16 @@ const usersReducer = function(state = usersInitialState, action){
 }
 
 const todosInitialState = {
-  name: ""
+  todos: [],
+  isLoading: false
 }
 const todosReducer = function(state = todosInitialState, action){
   switch (action.type) {
-    case 'TODOS_CHANGE_NAME':
-      state = {...state, name: action.payload};
+    case 'ALL_TODOS_PENDING':
+      state = {...state, isLoading: true};
+      break;
+    case 'ALL_TODOS_FULFILLED':
+      state = {...state, isLoading: false, todos: action.payload.data};
       break;
     default:
       state;
@@ -36,7 +44,10 @@ const rootReducers = combineReducers({
   todosReducer
 });
 
-const middlewares = applyMiddleware(logger);
+const middlewares = applyMiddleware(
+  logger,
+  promiseMiddleware()
+);
 
 const store = createStore(rootReducers, middlewares);
 
@@ -46,5 +57,7 @@ store.subscribe(()=>{
 });
 
 //DISPATCHER
-store.dispatch({type: 'USERS_CHANGE_USERNAME', payload: "radiegtya"});
-store.dispatch({type: 'TODOS_CHANGE_NAME', payload: "olahraga otak"});
+store.dispatch({
+  type: "ALL_TODOS",
+  payload: axios.get(`${API_URL}/todos`)
+})
