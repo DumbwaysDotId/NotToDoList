@@ -8,6 +8,7 @@ import {FlatList} from 'react-native';
 import axios from 'axios';
 
 import TodoItem from '../components/TodoItem';
+import TryRedux from '../components/TryRedux';
 import {API_URL} from '../constants';
 
 export default class Todos extends Component{
