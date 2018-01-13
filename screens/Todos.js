@@ -6,28 +6,19 @@ import {
 } from 'native-base';
 import {FlatList} from 'react-native';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 import TodoItem from '../components/TodoItem';
-import TryRedux from '../components/TryRedux';
+// import TryRedux from '../components/TryRedux';
 import {API_URL} from '../constants';
 
-export default class Todos extends Component{
-
-  constructor(){
-    super();
-    this.state = {
-      count: 0,
-      todos: []
-    };
-  }
+class Todos extends Component{
 
   componentDidMount(){
-    const self = this;
-    axios.get(`${API_URL}/todos`).then((result)=>{
-      self.setState({
-        todos: result.data
-      })
-    });
+    this.props.dispatch({
+      type: 'ALL_TODOS',
+      payload: axios.get(`${API_URL}/todos`)
+    })
   }
 
   _keyExtractor = (item, index) => item.id;
@@ -39,7 +30,7 @@ export default class Todos extends Component{
         <Content>
           <List>
             <FlatList
-              data={this.state.todos}
+              data={this.props.todosReducer.todos}
               keyExtractor={this._keyExtractor}
               renderItem={({item}) => <TodoItem todo={item}/>}
             />
@@ -58,3 +49,9 @@ export default class Todos extends Component{
     );
   }
 }
+
+const mapStateToProps = (state)=>({
+  todosReducer: state.todosReducer
+});
+
+export default connect(mapStateToProps)(Todos);

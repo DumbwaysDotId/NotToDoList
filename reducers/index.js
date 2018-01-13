@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { NavigationActions } from 'react-navigation';
 
 import { AppNavigator } from '../navigators';
+import todosReducer from './todos';
 
 // Start with two routes: The Main screen, with the Login screen on top.
 const action = AppNavigator.router.getActionForPathAndParams('Todos');
@@ -16,6 +17,7 @@ function nav(state = initialNavState, action) {
 
 const AppReducer = combineReducers({
   nav,
+  todosReducer
 });
 
 export default AppReducer;
