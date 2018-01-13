@@ -3,10 +3,12 @@ import {Body, Left, Right, ListItem, CheckBox, Text, SwipeRow, Button, Icon} fro
 import {View} from 'react-native';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 import {API_URL} from '../constants';
+import {allTodos} from '../actions';
 
-export default class TodoItem extends Component{
+class TodoItem extends Component{
 
   state = {
     isDone: false
@@ -30,8 +32,9 @@ export default class TodoItem extends Component{
     });
   }
 
-  handleDelete(id){
-    axios.delete(`${API_URL}/todos/${id}`);
+  async handleDelete(id){
+    await axios.delete(`${API_URL}/todos/${id}`);
+    this.props.dispatch(allTodos());
   }
 
   render(){
@@ -64,3 +67,9 @@ export default class TodoItem extends Component{
 TodoItem.propTypes = {
   todo: PropTypes.object.isRequired
 }
+
+const mapStateToProps = (state)=>({
+
+});
+
+export default connect(mapStateToProps)(TodoItem);
