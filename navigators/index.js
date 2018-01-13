@@ -7,8 +7,18 @@ import Todos from '../screens/Todos';
 import TodosCreate from '../screens/TodosCreate';
 
 export const AppNavigator = StackNavigator({
-  Todos: { screen: Todos },
-  TodosCreate: { screen: TodosCreate },
+  Todos: {
+    screen: Todos,
+    navigationOptions: {
+      headerTitle: 'Todos',
+    },
+  },
+  TodosCreate: {
+    screen: TodosCreate,
+    navigationOptions: {
+      headerTitle: 'Create Not To Do',
+    },
+  },
 });
 
 const AppWithNavigationState = ({ dispatch, nav }) => (

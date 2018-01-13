@@ -5,20 +5,15 @@ import {
   List, ListItem, CheckBox, Fab, Icon
 } from 'native-base';
 import {FlatList} from 'react-native';
-import axios from 'axios';
 import {connect} from 'react-redux';
 
 import TodoItem from '../components/TodoItem';
-// import TryRedux from '../components/TryRedux';
-import {API_URL} from '../constants';
+import {allTodos} from '../actions';
 
 class Todos extends Component{
 
   componentDidMount(){
-    this.props.dispatch({
-      type: 'ALL_TODOS',
-      payload: axios.get(`${API_URL}/todos`)
-    })
+    this.props.dispatch(allTodos());
   }
 
   _keyExtractor = (item, index) => item.id;
