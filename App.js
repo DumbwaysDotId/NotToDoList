@@ -1,21 +1,20 @@
-import {StackNavigator} from 'react-navigation';
+import React, {Component} from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
-import Todos from './screens/Todos';
-import TodosCreate from './screens/TodosCreate';
+import AppReducer from './reducers';
+import AppWithNavigationState from './navigators';
 
-const App = StackNavigator({
-  Todos: {
-    screen: Todos,
-    navigationOptions: {
-      headerTitle: 'Not To Do List',
-    },
-  },
-  TodosCreate: {
-    screen: TodosCreate,
-    navigationOptions: {
-      headerTitle: 'Create Todos',
-    },
-  },
-});
+class App extends Component {
+  store = createStore(AppReducer);
+
+  render() {
+    return (
+      <Provider store={this.store}>
+        <AppWithNavigationState />
+      </Provider>
+    );
+  }
+}
 
 export default App;
