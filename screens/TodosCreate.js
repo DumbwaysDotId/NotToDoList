@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {Container, Content, Text, Form, Item, Label, Input, Button} from 'native-base';
 import {StyleSheet} from 'react-native';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 import {API_URL} from '../constants';
+import {allTodos} from '../actions';
 
-export default class TodosCreate extends Component{
+class TodosCreate extends Component{
 
   constructor(){
     super();
@@ -22,9 +24,10 @@ export default class TodosCreate extends Component{
       axios.post(`${API_URL}/todos`, {
         name: text
       }).then((result)=>{
+        this.props.dispatch(allTodos());
         goBack();
       })
-    }    
+    }
   }
 
   render(){
@@ -45,6 +48,12 @@ export default class TodosCreate extends Component{
     )
   }
 }
+
+const mapStateToProps = (state)=>({
+
+});
+
+export default connect(mapStateToProps)(TodosCreate);
 
 const styles = StyleSheet.create({
   btnFooter: {
